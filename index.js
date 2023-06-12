@@ -64,6 +64,7 @@ class Transaction {
   constructor(amount, account) {
     this.amount = amount;
     this.account = account;
+    this.time = null;
   }
 
   get value() {
@@ -71,6 +72,8 @@ class Transaction {
   }
 
   commit() {
+    this.time = new Date();
+    this.account.addTransaction(this);
     this.account.balance += this.value;
   }
 }
@@ -79,10 +82,17 @@ class Account {
   constructor(username) {
     this.username = username;
     this.balance = 0;
+    this.transactions = [];
+  }
+
+  addTransaction(transaction) {
+    this.transactions.push(transaction);
+  }
+
+  getBalance() {
+    return this.balance;
   }
 }
-
-let balance = 500.00;
 
 class Deposit extends Transaction {
   get value() {
@@ -110,4 +120,5 @@ t3 = new Deposit(120.00, myAccount);
 t3.commit();
 console.log('Transaction 3:', t3);
 
-console.log('Balance:', myAccount.balance);
+console.log('Balance:', myAccount.getBalance());
+console.log('Transactions:', myAccount.transactions);
