@@ -66,8 +66,15 @@ class Transaction {
     this.amount  = amount;
     this.account = account;
   }
+  get value() {
+    return this.amount;
+  }
 
+  commit() {
+    this.account.balance += this.value;
+  }
 }
+
 
 class Account {
   constructor(username) {
