@@ -61,11 +61,11 @@
 // console.log('Balance:', balance);
 
 class Transaction {
-
   constructor(amount, account) {
-    this.amount  = amount;
+    this.amount = amount;
     this.account = account;
   }
+
   get value() {
     return this.amount;
   }
@@ -74,7 +74,6 @@ class Transaction {
     this.account.balance += this.value;
   }
 }
-
 
 class Account {
   constructor(username) {
@@ -86,19 +85,15 @@ class Account {
 let balance = 500.00;
 
 class Deposit extends Transaction {
-
-  commit() {
-    this.account.balance += this.amount;
+  get value() {
+    return this.amount;
   }
-
 }
 
 class Withdrawal extends Transaction {
-
-  commit() {
-    this.account.balance -= this.amount;
+  get value() {
+    return -this.amount;
   }
-
 }
 
 const myAccount = new Account("snow-patrol");
